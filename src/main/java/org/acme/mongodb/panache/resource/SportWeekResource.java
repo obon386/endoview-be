@@ -38,8 +38,13 @@ public class SportWeekResource {
     public List<YearWeek> listWeeks(@PathParam("year") int year) {
         Calendar calendar = Calendar.getInstance();
         List<YearWeek> yearWeeks = new ArrayList<>();
+        Calendar calToday = Calendar.getInstance();
+        int latestWeek = (calToday.get(Calendar.YEAR) == year) ?
+                calToday.get(Calendar.WEEK_OF_YEAR) :
+                52;
 
-        for (int i = 0; i < 53; i++) {
+
+        for (int i = latestWeek; i > 0; i--) {
             calendar.setWeekDate(year, i, Calendar.MONDAY);
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
             Month monthOfDayFirst = Month.of(calendar.get(Calendar.MONTH) + 1);
